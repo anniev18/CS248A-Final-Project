@@ -4,6 +4,8 @@ __NOTICE:__ This assignment was __previously used__ as a programming assignment 
 
 ## Documentation
 
+In this assignment you will manipulate a half-edge mesh data structure to perform mesh edit operations such as edge flips, edge splits, and edge removals, and use those operations for geometry processing tasks like mesh tessellation, mesh decimation, and remeshing.
+
 The [Cardinal3D Wiki](https://stanford-cs248.github.io/Cardinal3D/) that will be the primary source of information about this assignment. On that page you will find all the details about how to use the starter code, what you need to implement, and tips/guidelines for implementing it. This document only contains administrative details about building the starter code, grading, and submission.
 
 ## Submission Instructions
@@ -105,5 +107,6 @@ If we cannot find this writeup in your submission, no addtional implemented oper
 ## Acknowledgement
 
 CS248A course staff would like to thank Professor Keenan Crane and his course assistants for the initial development of assignment materials.
+
 
 
