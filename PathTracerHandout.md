@@ -1,6 +1,12 @@
-# Stanford CS248A Assignment 3 (PathTracer)
+# Stanford CS248A: PathTracer Assignment 
 
-We have created a [Wiki](https://stanford-cs248.github.io/Cardinal3D/) that will be the primary source of information about this assignment. (This is the same wiki as assignment 2.) On that page in the section called ["Pathtracer"](https://stanford-cs248.github.io/Cardinal3D/pathtracer/) where you will find all the details about how what you need to implement, and tips/guidelines for implementing it.  The [render mode](https://stanford-cs248.github.io/Cardinal3D/guide/render/) section of the user guide documents how to use the renderer. This document only contains administrative details about building the starter code, grading, and submission.
+__NOTICE:__ This assignment was __previously used__ as a programming assignment for Stanford CS248A: Computer Graphics.  Beginning with the [winter 2026 instantiation of the course](https://cs248a.stanford.edu), the course moved on to a new set of assignments, but we are leaving these projects online for the general public to try.  Stanford students taking CS248A should refer to website of the current course offering.
+
+## Documentation
+
+In this assignment you will implement a simple path tracer, beginning with ray-triangle intersection using a BVH, and ending with basic path-traced global illumination. The [Cardinal3D Wiki](https://stanford-cs248.github.io/Cardinal3D/) will be the primary source of information about this assignment. In the wiki, the section called ["Pathtracer"](https://stanford-cs248.github.io/Cardinal3D/pathtracer/) is where you will find all the details about how what you need to implement, and tips/guidelines for implementing it. The [render mode](https://stanford-cs248.github.io/Cardinal3D/guide/render/) section of the user guide documents how to use the renderer. 
+
+This document only contains administrative details about building the starter code, grading, and submission.
 
 ## Due Date
 
@@ -60,3 +66,4 @@ Additional ideas: (credit will be on a case-by-case basis).  Note that good fina
 ## Acknowledgement
 
 CS248A course staff would like to thank Professor Keenan Crane and his course assistants for the initial development of assignment materials.
+
