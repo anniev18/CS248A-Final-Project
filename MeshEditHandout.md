@@ -1,10 +1,6 @@
-# Stanford CS248A Assignment 2 (MeshEdit)
+# Stanford CS248A: MeshEdit Assignment
 
 We have created a [Wiki](https://stanford-cs248.github.io/Cardinal3D/) that will be the primary source of information about this assignment. On that page you will find all the details about how to use the starter code, what you need to implement, and tips/guidelines for implementing it. This document only contains administrative details about building the starter code, grading, and submission.
-
-## Due Date
-
-The assignment is due Feb. 6 at 11:59 PM.
 
 ## Submission Instructions
 Please zip the following files and upload your zipped file to Gradescope.
@@ -105,3 +101,4 @@ If we cannot find this writeup in your submission, no addtional implemented oper
 ## Acknowledgement
 
 CS248A course staff would like to thank Professor Keenan Crane and his course assistants for the initial development of assignment materials.
+
