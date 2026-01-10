@@ -8,7 +8,8 @@ permalink: /
 
 Welcome to Cardinal3D! This 3D graphics software package includes components for interactive mesh
 editing and realistic path tracin. Implementing functionality in these areas
-constitutes coursework for CS248A (Computer Graphics: Rendering, Geometry, and Imange Manipulation) at Stanford University
+was previously coursework for CS248A (Computer Graphics: Rendering, Geometry, and Imange Manipulation) at Stanford University.
+__This codebase is no longer used for the course since we moved to a new set of assignments beginning in [Winter 2026](https://cs248a.stanford.edu). However we are leaving the code online for the general public to learn graphics programming.__
 
 These pages describe how to set up with Cardinal3D. Start here!
 - [Git Setup](git): create a private git mirror that can pull changes from Cardinal3D (optional). 
@@ -17,9 +18,9 @@ These pages describe how to set up with Cardinal3D. Start here!
 __How to use Cardinal3D:__ read here to understand how to use the software. (But not all functionality will work as described until you implement it!) After building the starter code we recommend you start reading here.
 - [User Guide](guide): learn the intended functionality for end users.
 
-__How to implement Cardinal3D:__ The developer manual describes what you must implement to complete Cardinal3D. It is organized in terms of the main components of the software. Note that only MeshEdit and PathTracer are given to students in CS248A as assignments, but feel free to check out the Animation section to have more fun with Cardinal3D. (Animation is the subject of CS248B!)
-- [MeshEdit](meshedit) (CS248A Assignment 2)
-- [PathTracer](pathtracer) (CS248A Assignment 3)
+__How to implement Cardinal3D:__ The developer manual describes what you must implement to complete Cardinal3D. It is organized in terms of the main components of the software. Only the MeshEdit and PathTracer parts were assigned to students in CS248A as assignments, but feel free to check out the Animation section to have more fun with Cardinal3D.
+- [MeshEdit](meshedit) (formerly CS248A Assignment 2)
+- [PathTracer](pathtracer) (formerly CS248A Assignment 3)
 - [Animation](animation)
 
 ## Project Philosophy
@@ -77,3 +78,4 @@ simply show an error if they encounter a rare and difficult corner case---as lon
 does not interfere with successful operation of the program (i.e., if it does
 not crash or yield bizarre behavior). Your main goal here above all else should be 
 to develop _effective tool for modeling, rendering, and animation_.
+
