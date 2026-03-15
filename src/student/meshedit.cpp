@@ -30,6 +30,7 @@
     Note that the stubs below all reject their duties by returning the null optional.
 */
 
+
 /*
     This method should replace the given vertex and all its neighboring
     edges and faces with a single face, returning the new face.
@@ -75,9 +76,46 @@ std::optional<Halfedge_Mesh::VertexRef> Halfedge_Mesh::collapse_face(Halfedge_Me
     flipped edge.
 */
 std::optional<Halfedge_Mesh::EdgeRef> Halfedge_Mesh::flip_edge(Halfedge_Mesh::EdgeRef e) {
+    if(e->on_boundary()) return std::nullopt;
 
-    (void)e;
-    return std::nullopt;
+    HalfedgeRef h0 = e->halfedge();
+    HalfedgeRef h3 = h0->twin();
+    FaceRef f0 = h0->face();
+    FaceRef f1 = h3->face();
+    if(f0->is_boundary() || f1->is_boundary()) return std::nullopt;
+    if(f0->degree() != 3 || f1->degree() != 3) return std::nullopt;
+
+    // collect all halfedges
+    HalfedgeRef h1 = h0->next();
+    HalfedgeRef h2 = h1->next();
+    HalfedgeRef h4 = h3->next();
+    HalfedgeRef h5 = h4->next();
+
+    // collect vertices
+    VertexRef v0 = h0->vertex();
+    VertexRef v1 = h3->vertex();
+    VertexRef v2 = h2->vertex();
+    VertexRef v3 = h5->vertex();
+
+    // reassign every pointer exhaustively
+    h0->set_neighbors(h2, h3, v3, e, f0);
+    h3->set_neighbors(h5, h0, v2, e, f1);
+    h1->set_neighbors(h3, h1->twin(), v1, h1->edge(), f1);
+    h2->set_neighbors(h4, h2->twin(), v2, h2->edge(), f0);
+    h4->set_neighbors(h0, h4->twin(), v0, h4->edge(), f0);
+    h5->set_neighbors(h1, h5->twin(), v3, h5->edge(), f1);
+
+    // fix vertex halfedge pointers
+    v0->halfedge() = h4;
+    v1->halfedge() = h1;
+    v2->halfedge() = h3;
+    v3->halfedge() = h0;
+
+    // fix face halfedge pointers
+    f0->halfedge() = h0;
+    f1->halfedge() = h3;
+
+    return e;
 }
 
 /*
