@@ -5,6 +5,39 @@
 
 #include "../geometry/halfedge.h"
 #include "debug.h"
+namespace {
+using H = Halfedge_Mesh;
+
+H::HalfedgeRef prev_in_face(H::HalfedgeRef h) {
+    auto cur = h;
+    while(cur->next() != h) cur = cur->next();
+    return cur;
+}
+
+std::vector<H::VertexRef> face_vertices(H::FaceRef f) {
+    std::vector<H::VertexRef> vs;
+    auto h = f->halfedge();
+    do {
+        vs.push_back(h->vertex());
+        h = h->next();
+    } while(h != f->halfedge());
+    return vs;
+}
+
+Vec3 face_centroid(H::FaceRef f) {
+    Vec3 c;
+    float n = 0.0f;
+    auto h = f->halfedge();
+    do {
+        c += h->vertex()->pos;
+        n += 1.0f;
+        h = h->next();
+    } while(h != f->halfedge());
+    return (n > 0.0f) ? (c / n) : Vec3{};
+}
+
+
+}
 
 /* Note on local operation return types:
 
@@ -66,10 +99,74 @@ std::optional<Halfedge_Mesh::VertexRef> Halfedge_Mesh::collapse_edge(Halfedge_Me
     the new vertex created by the collapse.
 */
 std::optional<Halfedge_Mesh::VertexRef> Halfedge_Mesh::collapse_face(Halfedge_Mesh::FaceRef f) {
+    if(f->is_boundary()) return std::nullopt;
 
-    (void)f;
-    return std::nullopt;
+    // collect all halfedges, vertices, edges of the face
+    std::vector<HalfedgeRef> inner_halfedges;
+    std::vector<VertexRef> verts;
+    std::vector<EdgeRef> inner_edges;
+
+    HalfedgeRef h = f->halfedge();
+    do {
+        inner_halfedges.push_back(h);
+        verts.push_back(h->vertex());
+        inner_edges.push_back(h->edge());
+        h = h->next();
+    } while(h != f->halfedge());
+
+    // compute centroid
+    Vec3 centroid;
+    for(VertexRef v : verts) centroid += v->pos;
+    centroid /= (float)verts.size();
+
+    // create new vertex at centroid
+    VertexRef vm = new_vertex();
+    vm->pos = centroid;
+
+    // for each inner halfedge, redirect its twin's vertex to vm
+    for(HalfedgeRef ih : inner_halfedges) {
+        HalfedgeRef twin = ih->twin();
+        // redirect all halfedges that originated from this vertex to vm
+        HalfedgeRef cur = twin;
+        do {
+            cur->vertex() = vm;
+            cur = cur->twin()->next();
+        } while(cur != twin);
+    }
+
+    // give vm a valid halfedge (first outer twin we find)
+    vm->halfedge() = inner_halfedges[0]->twin()->next();
+    
+    // stitch outer halfedges: for each inner halfedge, connect its twin's prev to twin's next
+    for(HalfedgeRef ih : inner_halfedges) {
+        HalfedgeRef twin = ih->twin();
+        HalfedgeRef prev_twin = twin;
+        while(prev_twin->next() != twin) prev_twin = prev_twin->next();
+        // wait — we need the halfedge before twin in its face
+        // actually just find prev of twin in its outer face
+        HalfedgeRef outer_prev = prev_in_face(twin);
+        outer_prev->next() = twin->next();
+    }
+    // fix neighboring faces' halfedge pointers
+    for(HalfedgeRef ih : inner_halfedges) {
+        HalfedgeRef twin = ih->twin();
+        if(!twin->face()->is_boundary()) {
+            twin->face()->halfedge() = twin->next();
+        }
+    }
+
+    // delete inner elements
+    for(HalfedgeRef ih : inner_halfedges) {
+        erase(ih->twin());
+        erase(ih);
+    }
+    for(EdgeRef ie : inner_edges) erase(ie);
+    for(VertexRef v : verts) erase(v);
+    erase(f);
+
+    return vm;
 }
+
 
 /*
     This method should flip the given edge and return an iterator to the
@@ -312,8 +409,35 @@ void Halfedge_Mesh::bevel_face_positions(const std::vector<Vec3>& start_position
 */
 void Halfedge_Mesh::triangulate() {
 
-    // For each face...
+    // Build a triangle list for all non-boundary faces and rebuild the mesh.
+    std::unordered_map<VertexRef, Index> v_index;
+    std::vector<Vec3> verts;
+    verts.reserve(n_vertices());
+
+    Index next = 0;
+    for(VertexRef v = vertices_begin(); v != vertices_end(); v++) {
+        v_index[v] = next++;
+        verts.push_back(v->pos);
+    }
+
+    std::vector<std::vector<Index>> tris;
+    for(FaceRef f = faces_begin(); f != faces_end(); f++) {
+        if(f->is_boundary()) continue;
+        auto vs = face_vertices(f);
+        if(vs.size() < 3) continue;
+        if(vs.size() == 3) {
+            tris.push_back({v_index[vs[0]], v_index[vs[1]], v_index[vs[2]]});
+        } else {
+            Index i0 = v_index[vs[0]];
+            for(size_t i = 1; i + 1 < vs.size(); i++) {
+                tris.push_back({i0, v_index[vs[i]], v_index[vs[i + 1]]});
+            }
+        }
+    }
+
+    from_poly(tris, verts);
 }
+
 
 /* Note on the quad subdivision process:
 
@@ -395,7 +519,6 @@ void Halfedge_Mesh::linear_subdivide_positions() {
     Note: this will only be called on meshes without boundary
 */
 void Halfedge_Mesh::catmullclark_subdivide_positions() {
-
     // The implementation for this routine should be
     // a lot like Halfedge_Mesh:linear_subdivide_positions:(),
     // except that the calculation of the positions themsevles is
@@ -403,10 +526,42 @@ void Halfedge_Mesh::catmullclark_subdivide_positions() {
     // rules. (These rules are outlined in the Developer Manual.)
 
     // Faces
+    for(FaceRef f = faces_begin(); f != faces_end(); f++) {
+        if(f->is_boundary()) continue;
+        f->new_pos = face_centroid(f);
+    }
 
     // Edges
+    for(EdgeRef e = edges_begin(); e != edges_end(); e++) {
+        HalfedgeRef h = e->halfedge();
+        VertexRef v0 = h->vertex();
+        VertexRef v1 = h->twin()->vertex();
+        FaceRef f0 = h->face();
+        FaceRef f1 = h->twin()->face();
+        e->new_pos = (v0->pos + v1->pos + f0->new_pos + f1->new_pos) / 4.0f;
+    }
 
     // Vertices
+    for(VertexRef v = vertices_begin(); v != vertices_end(); v++) {
+        // Catmull-Clark vertex rule:
+        // new = (F + 2R + (n-3)P) / n
+        Vec3 F, R;
+        float n = 0.0f;
+
+        HalfedgeRef h = v->halfedge();
+        do {
+            F += h->face()->new_pos;
+            Vec3 p0 = h->vertex()->pos;
+            Vec3 p1 = h->twin()->vertex()->pos;
+            R += 0.5f * (p0 + p1);
+            n += 1.0f;
+            h = h->twin()->next();
+        } while(h != v->halfedge());
+
+        F /= n;
+        R /= n;
+        v->new_pos = (F + 2.0f * R + (n - 3.0f) * v->pos) / n;
+    }
 }
 
 /*
