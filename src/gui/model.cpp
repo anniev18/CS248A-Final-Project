@@ -657,6 +657,16 @@ std::string Model::UIsidebar(Undo& undo, Widgets& widgets, Scene_Maybe obj_opt, 
             return true;
         });
     }
+    if(Manager::wrap_button("Dimples")) {
+        mesh.copy_to(before);
+        return update_mesh_global(undo, obj, std::move(before),
+                                  [](Halfedge_Mesh& m) { return m.dimples(); });
+    }
+    if(Manager::wrap_button("Spikes")) {
+        mesh.copy_to(before);
+        return update_mesh_global(undo, obj, std::move(before),
+                                  [](Halfedge_Mesh& m) { return m.spikes(); });
+    }
     if(Manager::wrap_button("Remesh")) {
         mesh.copy_to(before);
         return update_mesh_global(undo, obj, std::move(before),

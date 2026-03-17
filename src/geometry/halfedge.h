@@ -321,6 +321,28 @@ public:
     */
     bool simplify();
 
+    /*
+        Adds a dimpled "geometric texture" by displacing vertices along their normals.
+        This is a surface displacement (not a boolean/solid operation).
+
+        density: fraction of faces that spawn a dimple stamp
+        radius_scale/depth_scale: scales relative to mean edge length
+        seed: deterministic randomness
+        rings: neighborhood size around each stamped face
+    */
+    bool dimples(float density = 0.18f, float radius_scale = 2.5f, float depth_scale = 0.35f,
+                 unsigned int seed = 1337u, unsigned int rings = 3u);
+
+    /*
+        Adds a spiky "geometric texture" by displacing vertices outward along their normals.
+        This is a surface displacement (not a boolean/solid operation).
+
+        height_scale: scales relative to mean edge length
+        seed: deterministic randomness
+        power: higher => fewer, sharper spikes
+    */
+    bool spikes(float height_scale = 0.65f, unsigned int seed = 1337u, float power = 4.0f);
+
     //////////////////////////////////////////////////////////////////////////////////////////
     // End student operations, begin methods students should use
     //////////////////////////////////////////////////////////////////////////////////////////

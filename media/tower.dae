@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Assimp</author>
+      <authoring_tool>Assimp Exporter</authoring_tool>
+    </contributor>
+    <created>2026-03-16T16:27:24</created>
+    <modified>2026-03-16T16:27:24</modified>
+    <unit name="meter" meter="1" />
+    <up_axis>Y_UP</up_axis>
+  </asset>
+  <library_cameras>
+    <camera id="S3D-RENDER_CAM_NODE-camera" name="S3D-RENDER_CAM_NODE" >
+      <optics>
+        <technique_common>
+          <perspective>
+            <xfov sid="xfov">121.28449</xfov>
+            <aspect_ratio>1.7777778</aspect_ratio>
+            <znear sid="znear">0</znear>
+            <zfar sid="zfar">1</zfar>
+          </perspective>
+        </technique_common>
+      </optics>
+    </camera>
+    <camera id="S3D-ANIM_CAM_NODE-camera" name="S3D-ANIM_CAM_NODE" >
+      <optics>
+        <technique_common>
+          <perspective>
+            <xfov sid="xfov">121.28449</xfov>
+            <aspect_ratio>1.7777778</aspect_ratio>
+            <znear sid="znear">0</znear>
+            <zfar sid="zfar">1</zfar>
+          </perspective>
+        </technique_common>
+      </optics>
+    </camera>
+  </library_cameras>
+  <library_images>
+  </library_images>
+  <library_effects>
+    <effect id="lambertian-fx" name="lambertian">
+      <profile_COMMON>
+        <technique sid="standard">
+          <phong>
+            <emission>
+              <color sid="emission">1   1   1   1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">1   1   1   1</color>
+            </diffuse>
+            <shininess>
+              <float sid="shininess">1</float>
+            </shininess>
+            <reflective>
+              <color sid="reflective">1   1   1   1</color>
+            </reflective>
+            <transparent>
+              <color sid="transparent">1   1   1   1</color>
+            </transparent>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1.2</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="lambertian" name="lambertian">
+      <instance_effect url="#lambertian-fx"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Cube-S3D-13_1" name="Cube-S3D-13" >
+      <mesh>
+        <source id="Cube-S3D-13_1-positions" name="Cube-S3D-13_1-positions">
+          <float_array id="Cube-S3D-13_1-positions-array" count="240"> -1 1 1 -1 1 -1 -1 -1 -1 -1 -1 1 1 -1 -1 1 -1 1 1 1 -1 1 1 1 -1 1 1 1 1 1 1 1 -1 -1 1 -1 -0.90979701 1.0868164 0.89208668 0.90979701 1.0868164 0.89208668 0.90979701 1.0868164 -0.89208668 -0.90979701 1.0868164 -0.89208668 -1.0454515 1.7754959 0.89208668 1.0285307 1.7754959 0.89208668 1.0902004 1.7754959 -0.89208668 -1.1238589 1.7754959 -0.89208668 -0.81707799 1.7754959 0.72033042 0.84890836 1.7754959 0.72033042 0.89710665 1.7754959 -0.72033042 -0.87835777 1.7754959 -0.72033042 -1.0644885 2.4040961 0.72033042 1.0644885 2.4040961 0.72033042 1.0644885 2.4040961 -0.72033042 -1.0644885 2.4040961 -0.72033042 -0.86087948 2.4040961 0.57820857 0.86087948 2.4040961 0.57820857 0.86087948 2.4040961 -0.57820857 -0.86087948 2.4040961 -0.57820857 -1.1509854 2.8952742 0.57820857 1.1509854 2.8952742 0.57820857 1.1509854 2.8952742 -0.57820857 -1.1509854 2.8952742 -0.57820857 -1.0658288 2.8952742 0.52765465 1.0658288 2.8952742 0.52765465 1.0658288 2.8952742 -0.52765465 -1.0658288 2.8952742 -0.52765465 -0.95402014 2.8952742 0.45074755 0.95402014 2.8952742 0.45074755 0.95402014 2.8952742 -0.45074755 -0.95402014 2.8952742 -0.45074755 -1.1336396 3.3116798 0.45074755 1.1336396 3.3116798 0.45074755 1.1336396 3.3116798 -0.45074755 -1.1336396 3.3116798 -0.45074755 -0.97491598 3.3116798 0.33843541 0.97491598 3.3116798 0.33843541 0.97491598 3.3116798 -0.33843541 -0.97491598 3.3116798 -0.33843541 -1.0823363 3.6183834 0.33843541 1.0823363 3.6183834 0.33843541 1.0823363 3.6183834 -0.33843541 -1.0823363 3.6183834 -0.33843541 -0.73511553 3.6183834 0.24949621 0.73511553 3.6183834 0.24949621 0.73511553 3.6183834 -0.24949621 -0.73511553 3.6183834 -0.24949621 -0.39719 3.8504739 0.24949621 0.39719 3.8504739 0.24949621 0.39719 3.8504739 -0.24949621 -0.39719 3.8504739 -0.24949621 -0.20920126 3.8504739 0.17816491 0.20920126 3.8504739 0.17816491 0.20920126 3.8504739 -0.17816491 -0.20920126 3.8504739 -0.17816491 -0.23159787 4.2964158 0.17816491 0.21376812 4.2964158 0.15235752 0.21376812 4.2964158 -0.15235752 -0.23159787 4.2964158 -0.17816491 -0.15154207 4.2964158 0.12091473 0.16937181 4.2964158 0.10340009 0.16937181 4.2964158 -0.10340009 -0.15154207 4.2964158 -0.12091473 -0.061786104 4.9610157 0.017449124 0.061786104 4.9610157 0.017449124 0.061786104 4.9610157 -0.017449124 -0.061786104 4.9610157 -0.017449124 </float_array>
+          <technique_common>
+            <accessor count="80" offset="0" source="#Cube-S3D-13_1-positions-array" stride="3">
+              <param name="X" type="float" />
+              <param name="Y" type="float" />
+              <param name="Z" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Cube-S3D-13_1-vertices">
+          <input semantic="POSITION" source="#Cube-S3D-13_1-positions" />
+        </vertices>
+        <polylist count="78" material="defaultMaterial">
+          <input offset="0" semantic="VERTEX" source="#Cube-S3D-13_1-vertices" />
+          <vcount>4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 </vcount>
+          <p>3 0 1 2 5 3 2 4 7 5 4 6 76 77 78 79 0 3 5 7 6 4 2 1 0 7 9 8 7 6 10 9 6 1 11 10 1 0 8 11 8 9 13 12 9 10 14 13 10 11 15 14 11 8 12 15 12 13 17 16 13 14 18 17 14 15 19 18 15 12 16 19 16 17 21 20 17 18 22 21 18 19 23 22 19 16 20 23 20 21 25 24 21 22 26 25 22 23 27 26 23 20 24 27 24 25 29 28 25 26 30 29 26 27 31 30 27 24 28 31 28 29 33 32 29 30 34 33 30 31 35 34 31 28 32 35 32 33 37 36 33 34 38 37 34 35 39 38 35 32 36 39 36 37 41 40 37 38 42 41 38 39 43 42 39 36 40 43 40 41 45 44 41 42 46 45 42 43 47 46 43 40 44 47 44 45 49 48 45 46 50 49 46 47 51 50 47 44 48 51 48 49 53 52 49 50 54 53 50 51 55 54 51 48 52 55 52 53 57 56 53 54 58 57 54 55 59 58 55 52 56 59 56 57 61 60 57 58 62 61 58 59 63 62 59 56 60 63 60 61 65 64 61 62 66 65 62 63 67 66 63 60 64 67 64 65 69 68 65 66 70 69 66 67 71 70 67 64 68 71 68 69 73 72 69 70 74 73 70 71 75 74 71 68 72 75 72 73 77 76 73 74 78 77 74 75 79 78 75 72 76 79 </p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers>
+  </library_controllers>
+  <library_visual_scenes>
+    <visual_scene id="node" name="">
+      <node id="Cube-S3D-13" name="Cube-S3D-13" type="NODE">
+        <matrix sid="matrix">1.3645346 0 0 0 0 3.2246213 0 0 0 0 2.0569899 0 0 0 0 1</matrix>
+        <instance_geometry url="#Cube-S3D-13_1">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="defaultMaterial" target="#lambertian">
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="S3D-ANIM_CAM_NODE" name="S3D-ANIM_CAM_NODE" type="NODE">
+        <matrix sid="matrix">0.70710677 -0.50000012 0.50000006 2.5 1.4901163e-08 0.70710677 0.70710683 3.5355344 -0.70710683 -0.50000006 0.49999997 2.4999998 0 0 0 1.0000001</matrix>
+        <instance_camera url="#S3D-ANIM_CAM_NODE-camera"/>
+      </node>
+      <node id="S3D-RENDER_CAM_NODE" name="S3D-RENDER_CAM_NODE" type="NODE">
+        <matrix sid="matrix">0.70710677 -0.50000012 0.50000006 2.5 1.4901163e-08 0.70710677 0.70710683 3.5355344 -0.70710683 -0.50000006 0.49999997 2.4999998 0 0 0 1.0000001</matrix>
+        <instance_camera url="#S3D-RENDER_CAM_NODE-camera"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <library_animations>
+  </library_animations>
+  <scene>
+    <instance_visual_scene url="#node" />
+  </scene>
+</COLLADA>
